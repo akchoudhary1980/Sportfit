@@ -1,0 +1,416 @@
+﻿@{    
+    Wom.Models.dbContext db = new Wom.Models.dbContext();
+    var maincategory = db.MainCategoryModels.Where(x => x.IsDisplayOnMenu == true).OrderBy(x=>x.CategoryName).ToList();
+    string act = "active";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Women’s World</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Right combination of natural, scientific, financial, managerial and operational skills to withstand the winds of change, A change towards using natural plant based products and put A Big stop towards chemical products">
+    <meta name="keywords" content="Plant based Nutrition combining Modern Science &amp; Ancient Ayurveda. From Meal Replacements, Collagen to Vegan Protein - we bring you Raw, Natural and Clean Nutrition">
+    <meta name="author" content="Anil Choudhary">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <link href="~/css/side-navbar.css" rel="stylesheet" />
+    <link href="~/css/womenworld.css" rel="stylesheet" />
+    <link href="~/css/icofont.min.css" rel="stylesheet" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 1000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+        }
+    </script>
+
+    <script type="text/javascript">
+        function searchoperation() {
+            var search = $('#txtsearch').val();
+            if (search != "") {
+                //
+                    // call Ajax Method
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("SeachProduct","Home")',
+                        dataType: 'json',
+                        data: {SearchValue:search},
+                        success: function (data) {
+                        window.location.href = "@Url.Action("Shopping", "Home")";
+                        //DisplayData(data);
+                        }
+                    });
+                ///
+            }
+        }
+    </script>
+
+    <!--for Search Category Wise-->
+    <script type="text/javascript">
+    function seachcategory(id) {
+            // call Ajax Method
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SeachProductByCategory")',
+                dataType: 'json',
+                data: {CatID:id},
+                success: function (data) {
+                window.location.href = "@Url.Action("Shopping", "Home")";
+                }
+            });
+        }
+    </script>
+    <!--for Search SubCategory Wise-->
+    <script type="text/javascript">
+    function seachsubcategory(id) {
+            // call Ajax Method
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SeachProductBySubCategory")',
+                dataType: 'json',
+                data: {CatID:id},
+                success: function (data) {
+                window.location.href = "@Url.Action("Shopping", "Home")";
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<body onload="myFunction()" style="margin:0;">
+    <!-- For Loader -->
+    <div id="loader"></div>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="sidebar-header">
+                <h5><i class="icofont-ui-clip-board"></i> Category</h5>
+            </div>
+            <ul class="list-unstyled components">
+                @foreach (var mc in maincategory)
+                {
+                    <li class="@act">
+                        <a href="#@(mc.MainCategoryID+"M")" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
+
+                        <ul class="collapse list-unstyled" id="@(mc.MainCategoryID+"M")">
+                            @{
+                                var subcategory = db.SubCategoryModels.Where(s => s.MainCategoryID == mc.MainCategoryID).OrderBy(x => x.CategoryName).ToList();
+                            }
+                            <li style="cursor:pointer"><a onclick="seachcategory(@mc.MainCategoryID)">@mc.CategoryName</a></li>
+
+                            @foreach (var sc in subcategory)
+                            {
+                                <li style="cursor:pointer">
+                                    <a onclick="seachsubcategory(@sc.SubCategoryID)" ><i class="icofont-simple-right"></i> @sc.CategoryName</a>
+                                </li>
+                            }
+                        </ul>
+
+                    </li>
+
+                    act = "";
+                }
+            </ul>
+        </nav>
+        <!-- Page Content  -->
+        <div id="content">
+            <section id="topbar">
+                <marquee><span class="icofont icofont-alarm"> </span> @Wom.Basic.RunningMessage</marquee>
+            </section>
+            <section id="searchbar">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-4 mb-2 logo-area">
+                            <img src="~/UploadFiles/Common/Women_World_Logo.png" />
+                        </div>
+                        <div class="col-md-5 pt-5">
+                            <div class="row">
+                                <div class="col-md-10 col-10 pr-zero">
+                                    <input id="txtsearch" type="text" class="search-box" />
+                                </div>
+                                <div class="col-md-2 col-2 pl-zero">
+                                    <button class="search-button" onclick="searchoperation();" type="button"><i class="icofont-ui-search icofont-2x"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 cart-area">
+                            <div class="row">
+                                <div class="col-md-12 login-text">
+                                    My Cart <i style="color:#BCD000" class="icofont-cart"> </i>
+                                    <a href="@Url.Action("ShoppingChart", "Home")" style="text-decoration:none">  <span style="color:white; background-color:red; position:relative;top:-10px;" class="badge badge-notify">@Session["ItemCount"]</span> </a>
+
+                                    <a href="@Url.Action("Index", "Login")" style="text-decoration:none">Login</a> <i style="color:#BCD000" class="icofont-user"></i>
+                                </div>
+                            </div>
+                            <div class="row pt-4">
+                                <div class="col-md-12 toll-free">
+                                    9302050528
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="menubar">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="container-fluid">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:#BCD000; color:white;width:100px;border-radius:0px;">
+                                <span><i class="fas fa-align-left"></i> Menu</span>
+                            </button>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse mainnav mt-2" id="navbarSupportedContent">
+                                <ul class="navbar-nav ms-auto mb-4 mb-sm-2 mb-lg-0">
+                                    <li><a href="@Url.Action("Index", "Home")">HOME</a></li>
+                                    @*<li><a href="#">HOT</a></li>
+                                    <li><a href="#">SHOP</a> </li>*@
+                                    @*<li><a href="#">BEAUTY PARLOUR</a></li>*@
+                                    <li><a href="@Url.Action("About", "Home")">ABOUT US</a></li>
+                                    <li><a href="@Url.Action("Contact", "Home")">CONTACT US</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </section>
+            <!-- Top Icons -->
+            <section class="mt-3 icons-bar">
+                <div class="container">
+                    <div class="row text-uppercase">
+                        @foreach (var mc2 in maincategory)
+                        {
+                            <div class="col-md-1 col-3 text-center">
+                                <a onclick="seachcategory(@mc2.MainCategoryID)" style="cursor:pointer">
+                                    <img src="~/UploadFiles/@mc2.Picture" class="img-fluid rounded-circle" style="border: 1px solid #CD118A;" />
+                                    <p>@mc2.CategoryName</p>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+            <!-- Render Body Start -->
+            <section>
+                @RenderBody()
+            </section>
+            <!-- Footer Section -->
+            <footer class="animated animate-bounce">
+                <section class="footer-bg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 mt-4 mb-4">
+                                <div class="col-md-12 green-underline">
+                                    <h5>OFFICE</h5>
+                                    <p>
+                                        Women’s World <br />
+                                        8,Samdariya Adarsh Complex, <br />
+                                        Cherital, Jabalpur(Mp)-482002
+                                    </p>                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-4 mb-4">
+                                <div class="col-md-12 green-underline">
+                                    <h5>SHOWROOM</h5>
+                                    <p>
+                                        Women’s World <br />
+                                        8C, Indrapuri, Raisen Road, <br />
+                                        Bhopal(MP)-462022
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-4 mb-4">
+                                <div class="col-md-12 green-underline">
+                                    <h5>CONTACT</h5>
+                                    <p>
+                                        Mobile: 9302050528 <br />
+                                        Telephone: 07554944288 <br />                                       
+                                        Email: womensworld9999@gmail.com
+                                    </p>
+                                </div>
+                            </div>                            
+                            @*<div class="col-md-8">
+            <div class="row mt-4 mb-4">
+                <div class="col-md-12 green-underline">
+                    <h5>WRIGHT US</h5>
+                </div>
+                <div>
+
+                    @using (Html.BeginForm("Query", "Home", FormMethod.Post, new { id = "queryform", name = "queryform" }))
+                    {
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <input id="customername" name="customername" type="text" class="form-control rounded-0" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <textarea id="address" name="address" placeholder="Your Address" rows="1" class="form-control rounded-0"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-6 mb-2">
+                                <input id="mobile" name="mobile" type="text" class="form-control rounded-0" placeholder="Mobile">
+                            </div>
+                            <div class="col-sm-6">
+                                <input id="email" name="email" type="text" class="form-control rounded-0" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <textarea id="query" name="query" placeholder="Your Query" rows="1" class="form-control rounded-0"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-end">
+                                <input type="submit" value="Submit Now" class="more-product rounded-0" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>*@
+                        </div>
+                        </div>
+                </section>
+                <section>
+                    <div class="container">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <ul class="footer-list">
+                                    <li> <a href="@Url.Action("ShippingDeliveryPolicy", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Shipping & Delivery Policy </a></li>
+                                    <li> <a href="@Url.Action("DisclaimerPolicy", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Disclaimer Policy </a></li>
+                                    <li> <a href="@Url.Action("PrivacyPolicy", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Privacy Policy </a></li>
+                                    <li> <a href="@Url.Action("RefundPolicy", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Cancellation & Refund Policy </a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+
+                                <ul class="footer-list">
+                                    @*<li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Health Tips </a></li>
+            <li> <a href="@Url.Action("HealthCard", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Health Cards </a></li>
+            <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Investors </a></li>
+            <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> News and Events </a></li>*@
+                                </ul>
+
+        
+                            </div>
+                            <div class="col-md-4 mt-2 mb-3 social-icon-box">
+                                <a class="no-link-white" href="https://www.facebook.com/womens.world.bhopal">
+                                    <div class="text-center social-icon facebook-bg">
+                                        <i class="icofont-facebook icofont-2x"></i>
+                                    </div>
+                                </a>
+                                <a class="no-link-white" href="https://api.whatsapp.com/send?phone=919302050528&text=Start%20Whatsapp%20Chating">
+                                    <div class="text-center social-icon whatsup-bg">
+                                        <i class="icofont-whatsapp icofont-2x"></i>
+                                    </div>
+                                </a>
+                                <a class="no-link-white" href="https://www.youtube.com/channel/UCpYjydbT0GR6rYGbNUueO3A">
+                                    <div class="text-center social-icon youtube-bg">
+                                        <i class="icofont-youtube icofont-2x"></i>
+                                    </div>
+                                </a>
+                                <a class="no-link-white" href="https://www.instagram.com/womens.world.bhopal">
+                                    <div class="text-center social-icon instagram-bg">
+                                        <i class="icofont-instagram icofont-2x"></i>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="footer-color">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Copyright © 2019, Women’s World.  All Rights Reserved.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Render Body End -->
+    <!-- For Sticky Social Icon -->
+    <!--<div class="sticky-icon-bar">
+        <a href="https://api.whatsapp.com/send?phone=919302050528&text=Start%20Whatsapp%20Chating" target="_blank" class="whatsup-bg"><i class="icofont-whatsapp"></i></a>-->
+        @*<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>*@
+    <!--</div>-->
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+
+    
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+</html>

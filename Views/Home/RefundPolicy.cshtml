@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .accordion {
+        background-color: #2BBCFB;
+        border: none;
+        color: #444;
+        cursor: pointer;
+        padding:4px 10Px 4px 10px;
+        width: 100%;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #BCD000;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+    .active:after {
+        content: "\2212";
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        border: 1px solid #BCD000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+</style>
+    <div class="container container mt-5 mb-5">
+        <div class="row mt-4 animated slideInDown">
+            <div class="col-md-9 offset-md-3 green-underline">
+                <h4>Cancellation & Refund Policy</h4>
+            </div>
+        </div>
+
+        <div class="row animated slideInUp">
+           
+                    <div class="col-md-3">
+                        <img src="~/UploadFiles/contactus.jpg" class="img-fluid" />
+                    </div>
+                    <div class="col-md-9">
+                        <p>You can initiate the return process by mailing us at womensworld9999@gmail.com calling us on +91-7554944288.</p>
+                        <p>The product should only be returned in case of physical damage to the product .And have to inform us within 24 hrs with a proof of video opening the packed consignment.</p>
+                        <p>Please ensure the product is in its original condition, unopened and unused product along with the original invoice, box and price tags.</p>
+                        <p>If in case the courier is found ineligible for refund, we will send the product back to you.</p>
+                        <p>Please note that replacements are subject to availability of particular products.</p>
+                        <p>Returns/replacements not applicable on orders delivered outside India.</p>
+                        <p>Please note that replacements are subject to availability of particular products.Payment made by card will be refunded on the same bank account and an online transfer will be issued on the bank details shared by the customer for payment made by Cash on delivery.</p>
+                        <p>Products which are unused and in its original new condition if not defective or damages.</p>
+                        <p>Products which are not tampered and is not missing its Serial/UPC number.</p>
+                        <p>Product returned back in its original packaging including box and other items as received along with the particular product.</p>
+                        <p>We are here to serve you best. Your satisfaction is our priority and if in case you have any query then please do mail us on womensworld9999@gmail.com</p>
+
+                    </div>
+        </div>
+    </div>
+
+    <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+    </script>
