@@ -1,18 +1,18 @@
-﻿@using System.Data
-@model System.Data.DataTable
+﻿@*@using System.Data
+@model System.Data.DataTable*@
 
 @{
-     //Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     Layout = null;
-    Wom.Models.dbContext db = new Wom.Models.dbContext();
-    var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x => x.MainCategoryID).ToList();
+    //Wom.Models.dbContext db = new Wom.Models.dbContext();
+    //var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x => x.MainCategoryID).ToList();
 
-    var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
-    int i = 0; int j = 0; string act = "";
+    //var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
+    //int i = 0; int j = 0; string act = "";
 
-    string indicator = "active";
-    string mcindicator = "active";
-    int indicatorcount = 0;
+    //string indicator = "active";
+    //string mcindicator = "active";
+    //int indicatorcount = 0;
 }
 <link href="~/css/product-slider.css" rel="stylesheet" />
 <link href="~/css/bootstrap.min.css" rel="stylesheet" />
