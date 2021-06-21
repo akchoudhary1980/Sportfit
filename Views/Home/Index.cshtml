@@ -1,42 +1,114 @@
-﻿@*@using System.Data
-@model System.Data.DataTable*@
+﻿@using System.Data
+@model System.Data.DataTable
 
 @{
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = null;
-    //Wom.Models.dbContext db = new Wom.Models.dbContext();
-    //var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x => x.MainCategoryID).ToList();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Wom.Models.dbContext db = new Wom.Models.dbContext();
+    var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x => x.MainCategoryID).ToList();
 
-    //var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
-    //int i = 0; int j = 0; string act = "";
+    var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
+    int i = 0; int j = 0; string act = "";
 
-    //string indicator = "active";
-    //string mcindicator = "active";
-    //int indicatorcount = 0;
+    string indicator = "active";
+    string mcindicator = "active";
+    int indicatorcount = 0;
 }
 <link href="~/css/product-slider.css" rel="stylesheet" />
-<link href="~/css/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-    .body {
-        @@font-face {
-            font-family: 'fontawesome-webfont';
-            src: url('../../css/fonts/icofont.woff2') format('woff2');
-        }
-    }
-   
-</style>
-<section>
-    <div class="row mt-5 mt-5">
-        <div class="col-md-12">
-            <div class="text-center">
-                <img src="~/UploadFiles/Common/New Logo.png" class="img-fluid" />
-                <h1 class="mt-3">This site is under construction</h1>
-                <h2>Ankita Trackways Pvt. Ltd.</h2>
-            </div> 
+<!-- Slider Section -->
+<section id="sliderbar">
+    <!-- Slider -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @foreach (var item in slider)
+            {
+                if (i == 0) { act = "active"; } else { act = ""; }
+                <li data-target="#carouselExampleInterval" data-slide-to="@i" class="@act"></li>
+                i++;
+            }
+        </ol>
+
+        <div class="carousel-inner">
+            @foreach (var item1 in slider)
+            {
+                if (j == 0) { act = "active"; } else { act = ""; }
+                <div class="carousel-item @act" data-bs-interval="2000">
+                    <a href="@item1.Link"><img class="d-block img-fluid w-100" src="~/UploadFiles/@item1.Picture" alt="slide @j"></a>
+                </div>
+                j++;
+            }
         </div>
+
+        <button class="carousel-control-prev my-auto" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next my-auto" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
 
+<!-- Category Section -->
+<section>
+    <div class="container my-4" style="padding-bottom:40px;">
+        <div class="row mt-2">
+            <div class="col-md-12 text-center green-underline">
+                <h4>MAIN CATEGORY</h4>
+            </div>
+        </div>
+        <section>
+            <div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2 product-carousel" data-ride="carousel">
+
+                <!--Controls-->
+                <div class="controls-top float-end my-3">
+                    <a class="btn-floating btn-sm" href="#carousel-example-multi" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+                    <a class="btn-floating btn-sm" href="#carousel-example-multi" data-slide="next"><i class="fas fa-chevron-right"></i></a>
+                </div>
+                <!--/.Controls-->
+                <!-- Indicators -->
+                <ol class="carousel-indicators" style="margin-top:20px;">
+                    @foreach (var mc in maincategory)
+                    {
+                        <li data-target="#carousel-example-multi" data-slide-to="@indicatorcount" class="@indicator"></li>
+                        indicatorcount = indicatorcount + 1;
+                        indicator = "";
+                    }
+
+                </ol>
+                <!--/.Indicators-->
+                <div class="carousel-inner" role="listbox">
+                    @foreach (var mc1 in maincategory)
+                    {
+                        <div class="carousel-item @mcindicator mx-auto">
+                            <div class="col-12 col-md-4 col-lg-2 mx-auto">
+                                <div class="card mb-2 rounded-0">
+                                    <div class="card-body p-3">
+                                        <a onclick="seachcategory(@mc1.MainCategoryID)" style="cursor:pointer">
+                                            <img src="~/UploadFiles/@mc1.Picture" class="img-fluid" />
+                                            <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">@mc1.CategoryName</h5>
+                                            <p class="aqua-sky-text mb-0">@mc1.Remark</p>
+                                            <ul class="list-unstyled list-inline my-2">
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star-half-alt mimosa-text"></i></li>
+                                            </ul>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        mcindicator = "";
+                    }
+                </div>
+            </div>
+
+        </section>
+    </div>
+</section>
 
 <!-- Script for Item slider end-->
 <script type="text/javascript">

@@ -3,7 +3,7 @@
 :root {
     --orange: #FC7C0E;
     --blue: #2BBCFB;
-    --green: #BCD000;
+    --green: #00A300;
     --darkorange: #EF7F1A;
     --magenta: #CD118A;
 }
@@ -283,8 +283,8 @@ icons-bar p{
 }
 
 #topbar {
-    /*background-color:  #FC7C0E;*/
-    background-color: var(--darkorange);
+    background-color: #FC7C0E;
+    /*background-color: var(--darkorange);*/
     height: 35px;
     line-height: 35px;
     vertical-align: middle;
@@ -305,7 +305,7 @@ icons-bar p{
 .search-box {
     width: 95% !important;
     border-style: none;
-    border: solid 1px #CD118A;
+    border: solid 1px #FC7C0E;
     padding: 9px 10px 9px 10px;
     float: right;
     transition: width 0.5s;
@@ -317,15 +317,15 @@ icons-bar p{
 
 .search-button {
     background-color: white;
-    color: #CD118A;
+    color: #FC7C0E;
     border-style: none;
-    border: solid 1px #CD118A;
+    border: solid 1px #FC7C0E;
     padding: 5px 10px 5px 10px;
     margin-left: -1px;
     transition: all 0.5s;
 }
     .search-button:hover {
-        background-color: #BCD000;
+        background-color: #00A300;
         color: white;
     }
 
@@ -333,7 +333,7 @@ icons-bar p{
     font-size: xx-large;
     font-weight: 900;
     text-align: right;
-    color: #CD118A;
+    color: #FC7C0E;
 }
 .login-text {
     color: #B8B5B5;
@@ -351,12 +351,12 @@ icons-bar p{
 }
 
 #menubar {
-    background-color: #CD118A;
+    background-color: #00A300;
 }
 
 /* menu */
 .mainnav {
-    background-color: #CD118A;
+    background-color: #00A300;
 }
 
 .mainnav > ul {
@@ -389,13 +389,14 @@ icons-bar p{
         transition: all 0.50s;
     }
 
-        .mainnav > ul > li.active > a,
-        .mainnav > ul > li > a:hover {
-            /*color: black;*/
-            background-color: #BCD000;
-            /*border-radius:10px;*/
-            /*border-bottom: 5px solid #BCD000;*/
-        }
+    .mainnav > ul > li.active > a,
+    .mainnav > ul > li > a:hover {
+        /*color: black;*/
+        background-color: #2BBCFB;
+        color:black;
+        /*border-radius:10px;*/
+        /*border-bottom: 5px solid #BCD000;*/
+    }
 #sliderbar {
     
 }
