@@ -4,7 +4,9 @@
     --orange: #FC7C0E;
     --blue: #2BBCFB;
     --green: #00A300;
+    --lightgreen: #BCD000;
     --darkorange: #EF7F1A;
+    --yellow: #FFFF2E;
     --magenta: #CD118A;
 }
 
@@ -58,14 +60,14 @@ icons-bar p{
 
 /* carousel button*/
 .carousel-control-prev {
-    background-color: greenyellow;
+    background-color: #BCD000;
     width: 40px;
     height: 40px;
     border: none;
 }
 
 .carousel-control-next {
-    background-color: greenyellow;
+    background-color: #BCD000;
     width: 40px;
     height: 40px;
     border: none;
@@ -325,7 +327,7 @@ icons-bar p{
     transition: all 0.5s;
 }
     .search-button:hover {
-        background-color: #00A300;
+        background-color: #BCD000;
         color: white;
     }
 
@@ -351,12 +353,12 @@ icons-bar p{
 }
 
 #menubar {
-    background-color: #00A300;
+    background-color: #BCD000;
 }
 
 /* menu */
 .mainnav {
-    background-color: #00A300;
+    background-color: #BCD000;
 }
 
 .mainnav > ul {
@@ -393,7 +395,7 @@ icons-bar p{
     .mainnav > ul > li > a:hover {
         /*color: black;*/
         background-color: #2BBCFB;
-        color:black;
+        color:white;
         /*border-radius:10px;*/
         /*border-bottom: 5px solid #BCD000;*/
     }

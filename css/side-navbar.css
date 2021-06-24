@@ -16,8 +16,8 @@ a:focus {
     left: -250px;
     height: 100vh;
     z-index: 999;
-    background: #FC7C0E;
-    color: #fff;
+    background: #2BBCFB;
+    color: white;
     transition: all 0.3s;
     overflow-y: scroll;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -32,7 +32,7 @@ a:focus {
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: #BCD000;
+    background: #FC7C0E;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -43,8 +43,8 @@ a:focus {
 }
 
 #dismiss:hover {
-    background: #fff;
-    color: #7386D5;
+    background: #BCD000;
+    color: white;
 }
 
 .overlay {
@@ -64,7 +64,8 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 10px;
-    background: #EF7F1A;
+    background: #FFFF2E;
+    color:orangered;
 }
 
 #sidebar ul.components {
@@ -91,7 +92,7 @@ a:focus {
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #B62084;
+    background: #FC7C0E;
 }
 
 a[data-toggle="collapse"] {
@@ -109,7 +110,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #CD118A;
+    background: #fbceb1; /* sub menu bg*/
 }
 
 ul.CTAs {
