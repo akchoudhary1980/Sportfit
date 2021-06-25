@@ -92,7 +92,7 @@ a:focus {
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #FC7C0E;
+   /* background: #FC7C0E;*/
 }
 
 a[data-toggle="collapse"] {
@@ -110,7 +110,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #fbceb1; /* sub menu bg*/
+    background: #71d2fc; /* sub menu bg*/   
 }
 
 ul.CTAs {
