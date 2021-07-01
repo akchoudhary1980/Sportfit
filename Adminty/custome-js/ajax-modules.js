@@ -153,9 +153,10 @@ function GetListwithEvent(ControlID, GetUrl) {
         });
     });
 }
+
 function SetInputMobile(id) {
     $(document).ready(function () {
-        $(id).keypress(function () {
+        $('#' + id).keypress(function () {
             return mobilenumber(event);
         });
     });
@@ -167,7 +168,13 @@ function SetInputNumeric(id) {
         });
     });
 }
-
+function SetInputInt(id) {
+    $(document).ready(function () {
+        $('#' + id).keypress(function () {
+            return OnlyNumbers(event);
+        });
+    });
+}
 function SetInputNumericIndian(id) {
     $(document).ready(function () {
         //alert('cal');
@@ -180,7 +187,7 @@ function SetInputNumericIndian(id) {
         $('#' + id).css("text-align", "right");
 
         // get foucs
-        $('#' + id).focus(function () {             
+        $('#' + id).focus(function () {
             $('#' + id).css("text-align", "right");
         });
         // key press event 
@@ -188,10 +195,10 @@ function SetInputNumericIndian(id) {
             return onlyNumbersWithDot(event);
         });
         // lost focus 
-        $('#' + id).blur(function () {           
+        $('#' + id).blur(function () {
             num = $('#' + id).val(); // get Value 
             num = num.replace("₹", "");
-            result = new Number(num).toLocaleString("hi-IN", { maximumFractionDigits: 2, style: 'currency', currency: 'INR' });            
+            result = new Number(num).toLocaleString("hi-IN", { maximumFractionDigits: 2, style: 'currency', currency: 'INR' });
             $('#' + id).val(result); // Set the Value  
             $('#' + id).css("text-align", "right");
         });
@@ -226,12 +233,50 @@ function SetDoubleIndian(id) {
         });
     });
 }
+function SetIntegerIndian(id) {
+    $(document).ready(function () {
+        //alert('cal');
+        var num;
+        var result;
+        // default value 
+        num = $('#' + id).val(); // get Value  
+        result = new Number(num).toLocaleString("hi-IN", { maximumFractionDigits: 0 });
+        $('#' + id).val(result); // Set the Value  
+        $('#' + id).css("text-align", "right");
+
+        // get foucs
+        $('#' + id).focus(function () {
+            $('#' + id).css("text-align", "right");
+        });
+        // key press event 
+        $('#' + id).keypress(function () {
+            return OnlyNumbers(event);
+        });
+        // lost focus 
+        $('#' + id).blur(function () {
+            num = $('#' + id).val(); // get Value 
+            //num = num.replace("₹", "");
+            result = new Number(num).toLocaleString("hi-IN", { maximumFractionDigits: 0 });
+            $('#' + id).val(result); // Set the Value  
+            $('#' + id).css("text-align", "right");
+        });
+    });
+}
+
+
 function RemoveIndianCulture(id) {
     var str = $('#' + id).val();
     str = str.replace("₹", "");
     str = str.replace(",", "");
     $('#' + id).val(str);
 }
+
+function ClearCulture(str) {
+    str = str.replace("₹", "");
+    str = str.replace(",", "");
+    return str;
+}
+
 function ConvertToDDMMYYYY(dateString) {
     date = new Date(dateString);
     year = date.getFullYear();
@@ -251,7 +296,6 @@ function ConvertToIndian(num) {
     result = new Number(num).toLocaleString("hi-IN", { maximumFractionDigits: 2, style: 'currency', currency: 'INR' });
     return result;
 }
-
 
 function SetHindiInput(id) {
     $(document).ready(function () {
@@ -278,3 +322,6 @@ function SetHindiInput(id) {
 
     });
 }
+
+
+
